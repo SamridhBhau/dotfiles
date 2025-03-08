@@ -1,0 +1,125 @@
+-- Standard awesome library
+local gears = require("gears")
+local awful     = require("awful")
+
+-- Wibox handling library
+local wibox = require("wibox")
+
+-- Custom Local Library: Common Functional Decoration
+local deco = {
+  wallpaper = require("deco.wallpaper"),
+  taglist   = require("deco.taglist"),
+  tasklist  = require("deco.tasklist")
+}
+
+--> Widgets
+local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+
+local taglist_buttons  = deco.taglist()
+local tasklist_buttons = deco.tasklist()
+
+local _M = {}
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- {{{ Wibar
+-- Create a textclock widget
+mytextclock = wibox.widget.textclock()
+
+awful.screen.connect_for_each_screen(function(s)
+  -- Wallpaper
+  set_wallpaper(s)
+
+  -- Create a promptbox for each screen
+  s.mypromptbox = awful.widget.prompt()
+
+  -- Create an imagebox widget which will contain an icon indicating which layout we're using.
+  -- We need one layoutbox per screen.
+  s.mylayoutbox = awful.widget.layoutbox(s)
+  s.mylayoutbox:buttons(gears.table.join(
+    awful.button({ }, 1, function () awful.layout.inc( 1) end),
+    awful.button({ }, 3, function () awful.layout.inc(-1) end),
+    awful.button({ }, 4, function () awful.layout.inc( 1) end),
+    awful.button({ }, 5, function () awful.layout.inc(-1) end)
+  ))
+
+  -- Create a taglist widget
+  s.mytaglist = awful.widget.taglist {
+    screen  = s,
+    filter  = awful.widget.taglist.filter.all,
+    style    = {
+            spacing = 4,
+            shape        = function(cr,w,h)
+                             gears.shape.rounded_rect(cr,w,h,4)
+                            end,
+    },
+    buttons = taglist_buttons
+  }
+
+  -- Create a tasklist widget
+  s.mytasklist = awful.widget.tasklist {
+    screen  = s,
+    filter  = awful.widget.tasklist.filter.currenttags,
+    style    = {
+            spacing = 5,
+            shape = function(cr,w,h)
+                        gears.shape.rounded_rect(cr,w,h,5)
+                    end,
+    },
+    buttons = tasklist_buttons
+  }
+
+  -- Create the wibox
+  s.mywibox = awful.wibar({ position = "top", screen = s })
+
+  mytaglistcontainer = wibox.container.margin (s.mytaglist, 4, 4, 3, 3)
+  mylaunchercontainer = wibox.container.margin (RC.launcher, 7, 2, 2, 2)
+  mytasklistcontainer = wibox.container.margin (s.mytasklist, 4, 4, 4, 4)
+  mylayoutboxcontainer = wibox.container.margin (s.mylayoutbox, 4, 4, 4, 4)
+
+  myvolumecontainer = wibox.container.margin (
+        volume_widget{
+        widget_type = 'icon_and_text',
+    }, 0, 0, 4, 4)
+
+  local container2 = wibox.widget {
+	myvolumecontainer,
+	forced_width = 55,
+	widget = wibox.container.background,
+	shape = function(cr, width, height)
+            gears.shape.rounded_rect(cr, width, height, 4)
+        end
+
+  }
+
+
+  myvolumecontainer1 = wibox.container.margin (container2, 8, 0, 1.5, 1.5)
+  -- Add widgets to the wibox
+  
+
+  s.mywibox:setup {
+    layout = wibox.layout.align.horizontal,
+    { -- Left widgets
+      layout = wibox.layout.fixed.horizontal,
+      mylaunchercontainer,
+      mytaglistcontainer,
+      s.mypromptbox,
+    },
+    mytasklistcontainer, -- Middle widget
+    { -- Right widgets
+      layout = wibox.layout.fixed.horizontal,
+      brightness_widget{
+            type = 'icon_and_text',
+	    program = 'brightnessctl',
+            step = 2,
+      },
+      --myvolumecontainer1,
+      mytextclock,
+      wibox.widget.systray(),
+      s.mylayoutbox,
+    },
+  } 
+end)
+-- }}}
+
