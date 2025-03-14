@@ -4,6 +4,7 @@ return {
     'nvim-lua/plenary.nvim' ,
     { "nvim-telescope/telescope-fzf-native.nvim", build="make"},
     "nvim-tree/nvim-web-devicons",
+    "folke/todo-comments.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -29,6 +30,7 @@ return {
     keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>")
     keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>")
     keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<CR>")
+    keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 
   end
 
