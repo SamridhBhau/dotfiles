@@ -25,6 +25,7 @@ return {
         "cssls",
         "pyright",
         "clangd",
+        "rust_analyzer",
       },
       automatic_installation = true
     })

@@ -99,5 +99,10 @@ return {
       on_attach = on_attachh,
     })
 
+    lspconfig["rust_analyzer"].setup({
+      capabilities = capabilities,
+      on_attach = on_attachh,
+    })
+
   end,
 }
