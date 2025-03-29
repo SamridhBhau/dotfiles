@@ -95,6 +95,8 @@ function _M.get()
 	-- Standard program
 	awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
 	{description = "open a terminal", group = "launcher"}),
+	awful.key({ modkey, "Shift"}, "s", function () awful.spawn("flameshot gui") end,
+	{description = "open flameshot", group = "application"}),
 	awful.key({ modkey,           }, "u", function () awful.spawn("librewolf") end,
 	{description = "open a browser"}),
 	awful.key({ modkey,           }, "o", function () awful.spawn("thunar") end,
