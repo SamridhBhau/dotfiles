@@ -103,6 +103,10 @@ return {
       capabilities = capabilities,
       on_attach = on_attachh,
     })
+    lspconfig["gopls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attachh,
+    })
 
   end,
 }

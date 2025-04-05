@@ -24,8 +24,8 @@ return {
         "html",
         "cssls",
         "pyright",
-        "clangd",
         "rust_analyzer",
+        "gopls",
       },
       automatic_installation = true
     })

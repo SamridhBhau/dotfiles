@@ -67,7 +67,7 @@ keymap = {
     'M-C-r': lazy.reload_config(),
     'M-C-q': lazy.shutdown(),
     'M-S-m': lazy.spawn("i3lock-fancy -g"),
-    'M-o': lazy.spawn("rofi -show drun"),
+    'M-o':   lazy.spawn("/home/sam/.config/rofi/launcher.sh"),
 
     'M-u': lazy.spawn("librewolf"),
 
