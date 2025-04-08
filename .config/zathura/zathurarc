@@ -1,3 +1,2 @@
 set selection-clipboard clipboard
-map <C-a> toggle_index
 map <C-i> recolor
