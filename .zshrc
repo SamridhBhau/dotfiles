@@ -107,3 +107,5 @@ alias n="nnn"
 
 export NNN_BMS="c:$HOME/programs/;b:$HOME/books/;s:$HOME/Documents/Study Materials/SEM-VI/;d:$HOME/Documents/;D:$HOME/Downloads/"
 
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+export VCPKG_ROOT="$HOME/.local/share/vcpkg"
