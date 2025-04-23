@@ -19,7 +19,6 @@ o.signcolumn = "yes"
 
 vim.opt.clipboard:append("unnamedplus")
 
-
 -- split
 o.splitright = true
 o.splitbelow = true

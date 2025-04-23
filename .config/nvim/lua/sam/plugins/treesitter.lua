@@ -10,7 +10,7 @@ return {
 		local treesitter = require("nvim-treesitter.configs")
 
       treesitter.setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "javascript", "html", "cpp" },
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "javascript", "html", "cpp", "go"},
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },
@@ -19,7 +19,7 @@ return {
         },
         incremental_selection = {
           enable = true,
-          keymaps = {
+          keymaps = { 
             init_selection = "<C-space>",
             node_incremental = "<C-space>",
             scope_incremental = false,

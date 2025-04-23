@@ -1,37 +1,22 @@
-# Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010, 2014 dequis
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
 from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.config import EzKey
+from libqtile import hook
+import os
+import subprocess
+
+
+# Autostart
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser('~/.config/qtile/autostart.sh')
+    subprocess.call(home)
+
 
 mod = "mod4"
-terminal = "kitty"
+terminal = "terminator"
 
 keymap = {
     'M-h': lazy.layout.left(),
@@ -68,15 +53,15 @@ keymap = {
     'M-C-q': lazy.shutdown(),
     'M-S-m': lazy.spawn("i3lock-fancy -g"),
     'M-o':   lazy.spawn("/home/sam/.config/rofi/launcher.sh"),
-
-    'M-u': lazy.spawn("librewolf"),
+    'M-C-o': lazy.spawn("flameshot gui"),
+    'M-u': lazy.spawn("floorp"),
 
     # Sound
     '<XF86AudioLowerVolume>' : lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -2%"),
     '<XF86AudioRaiseVolume>' : lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +2%"),
     '<XF86AudioMute>' : lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
-    '<XF86MonBrightnessUp>': lazy.spawn("brightnessctl set +4%"),
-    '<XF86MonBrightnessDown>': lazy.spawn("brightnessctl set 4%-"),
+    '<XF86MonBrightnessUp>': lazy.spawn("brightnessctl set +1%"),
+    '<XF86MonBrightnessDown>': lazy.spawn("brightnessctl set 1%-"),
 
 
     # Group
@@ -84,9 +69,7 @@ keymap = {
     'M-<comma>' : lazy.screen.prev_group(),
 }
 keys = [EzKey(k, v) for k, v in keymap.items()]
-# Add key bindings to switch VTs in Wayland.
-# We can't check qtile.core.name in default config as it is loaded before qtile is started
-# We therefore defer the check until the key binding is run by using .when(func=...)
+
 """
 for vt in range(1, 8):
     keys.append(
@@ -101,7 +84,7 @@ for vt in range(1, 8):
 """
 
 
-groups = [Group(i) for i in "123456789"]
+groups = [Group(i) for i in "12345"]
 
 for i in groups:
     keys.extend(
@@ -129,9 +112,9 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="sans",
-    fontsize=12,
-    padding=3,
+    font="sans-serif",
+    fontsize=16,
+    padding=4,
 )
 extension_defaults = widget_defaults.copy()
 
@@ -149,22 +132,17 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # widget.StatusNotifier(),
+                #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead widget.StatusNotifier(),
+                widget.Volume(
+                    update_interval=0,
+                    padding=4,
+                ),
+                widget.Clock(format="%d-%m-%Y %a %I:%M %p"),
                 widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.QuickExit(),
             ],
-            24,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+            26,
         ),
-        # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
-        # By default we handle these events delayed to already improve performance, however your system might still be struggling
-        # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
-        # x11_drag_polling_rate = 60,
     ),
 ]
 

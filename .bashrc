@@ -20,3 +20,7 @@ export NNN_BMS="c:$HOME/Documents/Programs/;b:$HOME/Documents/Books/;s:$HOME/Doc
 
 eval `ssh-agent -s`
 . "$HOME/.cargo/env"
+
+export GOPATH="$(go env GOPATH)"
+export PATH="${PATH}:${GOPATH}/bin"
+
