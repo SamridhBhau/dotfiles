@@ -108,5 +108,9 @@ return {
       on_attach = on_attachh,
     })
 
+    lspconfig["jdtls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attachh,
+    })
   end,
 }

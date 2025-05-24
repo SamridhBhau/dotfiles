@@ -26,6 +26,7 @@ return {
         "pyright",
         "rust_analyzer",
         "gopls",
+        "jdtls"
       },
       automatic_installation = true
     })
