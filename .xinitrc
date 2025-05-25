@@ -2,4 +2,5 @@
 
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
-xbindkeys
+xbindkeys &
+exec i3
