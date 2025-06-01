@@ -173,6 +173,8 @@ bindsym XF86AudioRaiseVolume exec "pamixer -ui 3 && pamixer --get-volume > /tmp/
 bindsym XF86AudioLowerVolume exec "pamixer -ud 3 && pamixer --get-volume > /tmp/xobpipe"
 # mute sound
 bindsym XF86AudioMute exec "amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > /tmp/xobpipe"
+bindsym XF86MonBrightnessUp exec "brightnessctl s +2%"
+bindsym XF86MonBrightnessDown exec "brightnessctl s 2%-"
 
 #bindsym $mod+Shift+p exec gnome-calculator
 #bindsym $mod+p exec ~/.scripts/dmshot
@@ -181,7 +183,7 @@ bindsym XF86AudioMute exec "amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[
 #bindsym $mod+l exec "setxkbmap -layout us && sleep 0.1 && setxkbmap -option grp:caps_toggle 'us,ru' -option grp_led:caps && sleep 0.1 && i3lock --blur 5"
 
 ## This keybind will lock the screen. The lockscreen.
-bindsym $mod+Shift+m exec "sleep 0.1 && i3lock --blur 5"
+bindsym $mod+Shift+m exec "sleep 0.1 && i3lock -c 000000"
 
 ########################################################################
 ########################################################################

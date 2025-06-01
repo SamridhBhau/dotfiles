@@ -1,7 +1,4 @@
-
-export NNN_BMS="c:$HOME/Documents/Programs/;b:$HOME/Documents/Books/;s:$HOME/Documents/Study Materials/SEM-VI/;d:$HOME/Documents/;D:$HOME/Downloads/"
-alias n='nnn'
-
+export NNN_BMS="c:$HOME/Documents/programs/;b:$HOME/Documents/Books/;s:$HOME/Documents/Study Materials/SEM-VI/;d:$HOME/Documents/;D:$HOME/Downloads/"
 
 # Start X at login
 if status is-login
