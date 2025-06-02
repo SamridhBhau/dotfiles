@@ -24,7 +24,6 @@ return {
         "html",
         "cssls",
         "pyright",
-        "rust_analyzer",
         "gopls",
         "jdtls",
         "clangd"
