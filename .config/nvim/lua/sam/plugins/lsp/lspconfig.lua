@@ -89,20 +89,11 @@ return {
       on_attach = on_attachh,
     })
 
-    lspconfig["ts_ls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attachh,
-    })
-
     lspconfig["pyright"].setup({
       capabilities = capabilities,
       on_attach = on_attachh,
     })
 
-    lspconfig["rust_analyzer"].setup({
-      capabilities = capabilities,
-      on_attach = on_attachh,
-    })
     lspconfig["gopls"].setup({
       capabilities = capabilities,
       on_attach = on_attachh,

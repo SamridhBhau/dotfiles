@@ -14,6 +14,6 @@ set shiftwidth=2
 set scrolloff=6
 
 set clipboard^=unnamedplus
-let g:seoul256_background = 233
+#let g:seoul256_background = 233
 colo seoul256
 set background=dark

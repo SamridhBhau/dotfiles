@@ -169,12 +169,11 @@ for_window [class="zenity"] floating enable
 ########################################################################
 
 
-bindsym XF86AudioRaiseVolume exec "pamixer -ui 3 && pamixer --get-volume > /tmp/xobpipe"
-bindsym XF86AudioLowerVolume exec "pamixer -ud 3 && pamixer --get-volume > /tmp/xobpipe"
-# mute sound
-bindsym XF86AudioMute exec "amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > /tmp/xobpipe"
-bindsym XF86MonBrightnessUp exec "brightnessctl s +2%"
-bindsym XF86MonBrightnessDown exec "brightnessctl s 2%-"
+bindsym XF86AudioRaiseVolume exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ & pactl get_sink_volume @DEFAULT_SINK@ > /tmp/xobpipe" 
+bindsym XF86AudioLowerVolume exec  "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%- & pactl get_sink_volume @DEFAULT_SINK@ > /tmp/xobpipe" 
+bindsym XF86AudioMute exec "wpctl set-volume @DEFAULT_AUDIO_SINK@"
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 2"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 2"
 
 #bindsym $mod+Shift+p exec gnome-calculator
 #bindsym $mod+p exec ~/.scripts/dmshot
@@ -211,4 +210,5 @@ exec --no-startup-id dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 exec_always mkfifo /tmp/xobpipe && tail -f /tmp/xobpipe | xob -t 2170 & disown
+exec gentoo-pipewire-launcher restart &
 #exec ~/.i3/launch.sh
