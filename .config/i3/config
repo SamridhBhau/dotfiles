@@ -157,7 +157,6 @@ for_window [class="librewolf"] border none
 for_window [class="firefox"] border none
 for_window [class="mpv"] floating enable
 for_window [class="imv"] floating enable
-for_window [class="zenity"] floating enable
 
 
 ########################################################################
@@ -210,5 +209,5 @@ exec --no-startup-id dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 exec_always mkfifo /tmp/xobpipe && tail -f /tmp/xobpipe | xob -t 2170 & disown
-exec gentoo-pipewire-launcher restart &
+#exec gentoo-pipewire-launcher restart &
 #exec ~/.i3/launch.sh
